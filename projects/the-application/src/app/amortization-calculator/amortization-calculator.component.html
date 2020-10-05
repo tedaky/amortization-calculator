@@ -1,0 +1,190 @@
+<div class="header">
+  <button type="button" (click)="toggleInput()"></button>
+  Amortization Calculator
+</div>
+<div class="wrapper">
+  <div
+    class="form"
+    [ngClass]="{ active: open === 'opened', closed: open === 'forced' }"
+  >
+    <div>
+      <button type="button" (click)="closeInput()"></button>
+      <form
+        #form="ngForm"
+        autocomplete="off"
+        (submit)="form.valid ? calculate() : null"
+      >
+        <!-- Loan Amount -->
+        <div class="col wid100 divide">
+          <label for="loanAmount">Loan Amount:</label>
+          <table>
+            <tr>
+              <td width="1%">$</td>
+              <td width="100%">
+                <input
+                  [(ngModel)]="loanAmount"
+                  type="text"
+                  name="loanAmount"
+                  id="loanAmount"
+                  class="input-field"
+                  required
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <!-- Loan Length Years / Months -->
+        <div class="divide">
+          <div class="col">
+            <label>Length:</label>
+            <input type="hidden" [(ngModel)]="time" name="time" id="time" />
+          </div>
+          <div class="col wid50">
+            <label for="years">Years:</label><br />
+            <input
+              type="text"
+              name="years"
+              id="years"
+              [(ngModel)]="years"
+              class="input-field"
+              required
+            />
+          </div>
+          <div class="col wid50">
+            <label for="months">Months:</label><br />
+            <input
+              type="text"
+              name="months"
+              id="months"
+              [(ngModel)]="months"
+              class="input-field"
+              required
+            />
+          </div>
+        </div>
+        <!-- Interest Rate -->
+        <div class="col wid50 divide">
+          <label for="interestRate">Interest Rate:</label>
+          <table>
+            <tr>
+              <td width="100%">
+                <input
+                  type="text"
+                  id="interestRate"
+                  name="interestRate"
+                  [(ngModel)]="interestRate"
+                  class="input-field"
+                />
+              </td>
+              <td width="1%">%</td>
+            </tr>
+          </table>
+        </div>
+        <!-- Extra Payments -->
+        <div class="divide">
+          <div class="col">
+            <label for="extraPayments">Extra Payments:</label>
+          </div>
+          <div class="col wid45">
+            <input
+              type="radio"
+              name="extraPaymentsType"
+              id="monthly"
+              [(ngModel)]="extraPaymentsType"
+              value="monthly"
+            />
+            <label for="monthly">Monthly</label><br />
+            <input
+              type="radio"
+              name="extraPaymentsType"
+              id="yearly"
+              [(ngModel)]="extraPaymentsType"
+              value="yearly"
+            />
+            <label for="yearly">Yearly</label>
+          </div>
+          <div class="col wid55">
+            <table>
+              <tr>
+                <td width="1%">$</td>
+                <td width="100%">
+                  <input
+                    type="text"
+                    id="extraPayments"
+                    name="extraPayments"
+                    [(ngModel)]="extraPayments"
+                    class="input-field"
+                  />
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <!-- Calculate -->
+        <div class="col wid100 divide">
+          <button type="submit">Calculate</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="result">
+    <div>
+      <div>
+        <p><b>Without Extra Payments:</b></p>
+        <!-- Monthly Payment -->
+        <p>Monthly Payment: {{ monthlyPayment.toFixed(2) }}</p>
+        <p>Total Spent: {{ totalPayments.toFixed(2) }}</p>
+      </div>
+      <div>
+        <div>
+          <!-- Table -->
+          <table *ngIf="monthlyPayment">
+            <tr>
+              <td colspan="4" align="center">
+                Total Spent with Extra Payments
+              </td>
+              <td colspan="2">
+                {{ (table.interest + table.principal + table.extra).toFixed(2) }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="6">
+                Savings:
+                {{
+                  (totalPayments - (table.interest + table.principal + table.extra)).toFixed(
+                    2
+                  )
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td>Totals:</td>
+              <td>{{ (table.principal + table.interest).toFixed(2) }}</td>
+              <td>{{ table.interest.toFixed(2) }}</td>
+              <td>{{ table.principal.toFixed(2) }}</td>
+              <td>{{ table.extra.toFixed(2) }}</td>
+              <td>{{ table.balance.toFixed(2) }}</td>
+            </tr>
+            <tr>
+              <th>#</th>
+              <th>Payment</th>
+              <th>Interest</th>
+              <th>Principal</th>
+              <th>Extra Payment</th>
+              <th>Balance</th>
+            </tr>
+            <tr *ngFor="let item of table.table; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ (item.principal + item.interest).toFixed(2) }}</td>
+              <td>{{ item.interest.toFixed(2) }}</td>
+              <td>{{ item.principal.toFixed(2) }}</td>
+              <td>{{ item.extra.toFixed(2) }}</td>
+              <td>{{ item.balance.toFixed(2) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

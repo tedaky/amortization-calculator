@@ -1,4 +1,342 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  background-color: #3b3b3b;
+  padding: 10px 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: #e4e4e4;
+  position: fixed;
+  z-index: 6;
+  width: 100%;
+  height: 44px;
+
+  button {
+    width: 32px;
+    height: 26px;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    border: 1px solid #8d8d8d;
+    background-color: #545454;
+    padding: 0;
+    margin: 0;
+
+    &:before,
+    &:after {
+      content: '';
+      height: 2px;
+      width: 17px;
+      left: 7px;
+      position: absolute;
+      background-color: #8d8d8d;
+    }
+
+    &:before {
+      top: 8px;
+    }
+    &:after {
+      bottom: 8px;
+    }
+  }
+}
+
+@keyframes inputOpen {
+  0% {
+    left: -360px;
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    left: 0;
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+@keyframes inputClose {
+  0% {
+    visibility: visible;
+    left: 0;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    visibility: visible;
+    left: -360px;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+  }
+}
+
+@keyframes inputClosing {
+  0% {
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 0;
+  }
+  100% {
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+    margin-left: -360px;
+  }
+}
+@keyframes inputOpening {
+  0% {
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+    margin-left: -360px;
+  }
+  100% {
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+    margin-left: 0;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  display: inline-block;
+  height: 100%;
+}
+
+label {
+  padding: 6px;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 16px;
+}
+.input-field {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #707070;
+  border-radius: 0;
+  font-size: 18px;
+}
+.col {
+  padding: 0 15px;
+}
+.divide {
+  margin-bottom: 20px;
+}
+[class*='wid'] {
+  display: inline-block;
+  vertical-align: top;
+}
+.wid100 {
+  width: 100%;
+}
+.wid55 {
+  width: 55%;
+}
+.wid50 {
+  width: 50%;
+}
+.wid45 {
+  width: 45%;
+}
+
+.form {
+  padding-top: 44px;
+  background-color: #242424;
+  color: #e9e9e9;
+  position: fixed;
+  height: 100%;
+  max-width: 100%;
+  width: 360px;
+  top: 0;
+  left: -360px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+  visibility: hidden;
+  animation-duration: 500ms;
+
+  @media (max-width: 767px) {
+    animation-name: inputClose;
+  }
+
+  &.active {
+    left: 0;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+    visibility: visible;
+
+    @media (max-width: 767px) {
+      animation-name: inputOpen;
+    }
+  }
+
+  &:before,
+  &:after {
+    content: '';
+  }
+  &:before {
+    flex: 1 0 auto;
+  }
+  &:after {
+    flex: 4 0 auto;
+  }
+
+  & > div {
+    flex: 0 1 auto;
+    padding: 10px;
+    overflow-y: auto;
+
+    & > button {
+      &:first-child {
+        width: 26px;
+        height: 26px;
+        position: absolute;
+        top: 44px;
+        right: 0px;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        line-height: 26px;
+        font-size: 22px;
+        text-align: center;
+        background-color: transparent;
+        z-index: 4;
+
+        &:before {
+          content: '\00d7';
+          color: white;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+    background-color: #d5dcf3;
+    color: #363636;
+    padding: 10px 15px;
+    border-radius: 0;
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  @media (min-width: 768px) {
+    visibility: visible;
+    box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0.5);
+    animation-name: inputOpening;
+    left: 0;
+    margin-left: 0;
+
+    &.closed {
+      box-shadow: 0px 0px 60px 10px rgba(0, 0, 0, 0);
+      visibility: hidden;
+      margin-left: -360px;
+      animation-name: inputClosing;
+    }
+  }
+}
+
+.form.closed {
+  & + .result {
+    @media (min-width: 768px) {
+      &:before {
+        width: auto;
+      }
+    }
+  }
+}
+
+.result {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  padding-top: 44px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+
+  &:before,
+  &:after {
+    content: '';
+  }
+  &:before {
+    flex: 1 1 auto;
+
+    @media (min-width: 768px) {
+      width: 360px;
+    }
+  }
+  &:after {
+    flex: 1 1 auto;
+  }
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    width: 768px;
+    height: 100%;
+    max-width: 100%;
+    text-align: left;
+
+    & > div {
+      &:first-child {
+        flex: 0 1 auto;
+        border-bottom: 1px solid #9c9c9c;
+        padding: 5px 15px;
+      }
+      &:last-child {
+        flex: 0 1 auto;
+        position: relative;
+        overflow: auto;
+
+        & > div {
+          width: 100%;
+          height: 100%;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  tr {
+    border-bottom: 1px solid #b4b4b4;
+
+    &:nth-child(odd) {
+      background-color: #f3f3f3;
+    }
+  }
+  td,
+  th {
+    padding: 10px 15px;
+    border-right: 1px solid #dfdfdf;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+[width='1%'] {
+  &:first-child {
+    padding-right: 12px;
+  }
+  &:last-child {
+    padding-left: 12px;
+  }
+}
